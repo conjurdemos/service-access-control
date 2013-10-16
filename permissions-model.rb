@@ -19,6 +19,4 @@ namespace do
   end
 end
 
-File.write('config.yml', config.to_yaml)
-
 config.to_yaml
