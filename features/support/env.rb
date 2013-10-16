@@ -6,7 +6,7 @@ require 'cucumber/rspec/doubles'
 require 'rack/test'
 require 'rspec'
 
-module MyAppWorld
+module ServiceAccessControlWorld
   def authorization_token(login)
     require 'conjur/api'
     token = Conjur::API.new_from_key([$config[:namespace], login ].join('-'), api_key(login)).token
@@ -25,4 +25,4 @@ module MyAppWorld
   end
 end
 
-World(MyAppWorld, Rack::Test::Methods, RSpec::Expectations, RSpec::Matchers)
+World(ServiceAccessControlWorld, Rack::Test::Methods, RSpec::Expectations, RSpec::Matchers)

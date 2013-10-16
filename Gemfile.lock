@@ -1,4 +1,16 @@
 GIT
+  remote: git@github.com:conjurdemos/conjur-demo-sinatra.git
+  revision: 24d614f852df054ebeb0d700c361f0d26a1bf8d2
+  specs:
+    conjur-demo-sinatra (1.0.0)
+      conjur-cli
+      cucumber
+      cucumber-sinatra
+      rack-test
+      rspec
+      sinatra
+
+GIT
   remote: git@github.com:conjurinc/api-ruby.git
   revision: 848e4f9eca07b457003997df778fe6191d3e480b
   branch: dsl
@@ -74,7 +86,6 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    slosilo (0.2.4)
     templater (1.0.0)
       diff-lcs (>= 1.1.2)
       extlib (>= 0.9.5)
@@ -90,9 +101,4 @@ PLATFORMS
 DEPENDENCIES
   conjur-api!
   conjur-cli!
-  cucumber
-  cucumber-sinatra
-  rack-test
-  rspec
-  sinatra
-  slosilo
+  conjur-demo-sinatra!
