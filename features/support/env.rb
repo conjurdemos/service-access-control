@@ -9,13 +9,13 @@ require 'rspec'
 module ServiceAccessControlWorld
   def authorization_token(login)
     require 'conjur/api'
-    token = Conjur::API.new_from_key([$config[:namespace], login ].join('-'), api_key(login)).token
+    token = Conjur::API.new_from_key([Conjur::Config[:namespace], login ].join('-'), api_key(login)).token
     "Token token=\"#{Base64.strict_encode64 token.to_json}\""
   end
   
   def api_key(login)
-    env_key = "#{login.upcase}_API_KEY"
-    $config[:api_keys][login.to_sym] or raise "No env_key"
+    key = [ Conjur::Config[:account], 'user', [ Conjur::Config[:namespace], login ].join('-') ].join(':')
+    Conjur::Config[:api_keys][key] or raise "User #{key} not found in #{Conjur::Config[:api_keys].keys}"
   end
   
   def app
