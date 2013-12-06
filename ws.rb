@@ -6,6 +6,10 @@ class ServiceAccessControl < Sinatra::Base
   extend Conjur::Demo::Sinatra
   
   configure!
+
+  before do
+    parse_authorization
+  end
   
   helpers do
     def can?(privilege, resource)
