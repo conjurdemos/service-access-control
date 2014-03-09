@@ -7,14 +7,18 @@ require 'rack/test'
 require 'rspec'
 
 module ServiceAccessControlWorld
+  def username(login)
+    [ login, Conjur::Config[:policy].gsub(/[^\w]/, '-') ].join('@')
+  end
+  
   def authorization_token(login)
     require 'conjur/api'
-    token = Conjur::API.new_from_key([Conjur::Config[:namespace], login ].join('-'), api_key(login)).token
+    token = Conjur::API.new_from_key(username(login), api_key(login)).token
     "Token token=\"#{Base64.strict_encode64 token.to_json}\""
   end
   
   def api_key(login)
-    key = [ Conjur::Config[:account], 'user', [ Conjur::Config[:namespace], login ].join('-') ].join(':')
+    key = [ Conjur::Config[:account], 'user', username(login) ].join(':')
     Conjur::Config[:api_keys][key] or raise "User #{key} not found in #{Conjur::Config[:api_keys].keys}"
   end
   

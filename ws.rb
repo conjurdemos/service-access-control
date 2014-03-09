@@ -13,7 +13,7 @@ class ServiceAccessControl < Sinatra::Base
   
   helpers do
     def can?(privilege, resource)
-      resource = @api.resource [ account, 'service', [ namespace, resource ].join('/') ].join(':')
+      resource = @api.resource [ account, 'food', [ policy, resource ].join('/') ].join(':')
       resource.permitted?(privilege)
     end
   end
